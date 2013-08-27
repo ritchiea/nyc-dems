@@ -12,5 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require ./vendor/handlebars-1.0.0
+//= require ./vendor/ember-1.0.0-rc.7
+//= require ./vendor/epf
+//= require_tree ./lib
+//= require app/app
+//= require_tree ./app/models
+//= require_tree ./app/controllers
+//= require_tree ./app/views
+//= require_tree ./app/helpers
+//= require_tree ./app/templates
