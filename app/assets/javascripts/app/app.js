@@ -6,16 +6,11 @@ window.App = Ember.Application.create({
 
 App.Marker = Ember.Object.extend({})
 
-
-App.View = Ember.View.extend({
-  classNames: ['full-height']
-})
 // router
 
 App.Router.map(function() {
 
-  this.route('map', { path: '/' /*, 
-                               init: mapView = App.MapView.create({}) */ })
+  this.route('map', { path: '/' })
 
 })
 
