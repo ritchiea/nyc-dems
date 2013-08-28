@@ -1,5 +1,6 @@
 App.MapView = Ember.View.extend({
   // id: 'map-canvas',
+  classNames: ['full-height'],
   tagName: 'div',
   // templateName: 'map',
 

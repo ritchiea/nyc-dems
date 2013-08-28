@@ -9,8 +9,9 @@
     = csrf_meta_tags
     = yield(:head)
   %body
-    %script{type: 'text/x-handlebars'}
+    #container
       {{ outlet }}
+
     %script{type: 'text/x-handlebars', 'data-template-name' => 'map'}
       #map-canvas
 
