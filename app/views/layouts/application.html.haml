@@ -4,10 +4,14 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %title NYC Dems
     = stylesheet_link_tag "application", :media => "all"
-    = javascript_include_tag "application"
+    %script{src: "#{'http://maps.googleapis.com/maps/api/js?key='+ENV['MAPS_API']+'&sensor=false'}",
+      type: 'text/javascript'}
     = csrf_meta_tags
     = yield(:head)
   %body
     %script{type: 'text/x-handlebars'}
-      %h1 Hello
-    %script{type: 'text/x-handlebars', 'data-template-name' => 'index'}
+      {{ outlet }}
+    %script{type: 'text/x-handlebars', 'data-template-name' => 'map'}
+      #map-canvas
+
+    = javascript_include_tag "application"
