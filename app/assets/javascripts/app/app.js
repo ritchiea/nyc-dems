@@ -14,7 +14,13 @@ App.Router.map(function() {
 
 })
 
-App.MapRoute = Ember.Route.extend({})
+// App.AddButton = Ember.Object.extend(Ember.Evented, {
+
+App.MapRoute = Ember.Route.extend({
+  events: {
+    addEndorsement: function() { console.log('omglol'); }
+  }
+})
 
 App.EndorsementsRoute = Ember.Route.extend({
   model: function() {
