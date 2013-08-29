@@ -3,7 +3,6 @@ App.MapView = Ember.View.extend({
   classNames: ['full-height'],
   tagName: 'div',
   // templateName: 'map',
-
   map: null,
 
   didInsertElement: function() {

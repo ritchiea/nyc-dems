@@ -1,5 +1,16 @@
 $trans_black: rgba(32, 32, 32, 0.5);
 
+@mixin center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+@mixin ui_element {
+  background-color: $trans_black;
+  color: rgb(245,245,245);
+}
+
 html { height: 100% }
 body { height: 100%; margin: 0; padding: 0 }
 #container { height: 100% }
@@ -20,10 +31,24 @@ body { height: 100%; margin: 0; padding: 0 }
 #add-endorsement {
   position: absolute;
   cursor: pointer;
-  top: 4%;
+  top: 8%;
   right: 1%;
   z-index: 101;
   height: 3%;
   width: 5%;
-  background-color: $trans_black;
+  text-align: center;
+  font-size: 18pt;
+  @include ui_element;
+}
+
+#address-form-container {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  width: 262px;
+  z-index: 101;
+  @include ui_element;
+  form {
+    margin: 10px 0 0 20px;
+  }
 }
