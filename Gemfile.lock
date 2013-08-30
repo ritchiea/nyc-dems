@@ -59,6 +59,8 @@ GEM
     diffy (3.0.1)
     erubis (2.7.0)
     execjs (2.0.1)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
@@ -100,6 +102,7 @@ GEM
     mime-types (1.24)
     minitest (4.7.5)
     multi_json (1.7.9)
+    multipart-post (1.2.0)
     pg (0.16.0)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
@@ -191,6 +194,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 2.3.2.2)
   coffee-rails (~> 4.0.0)
+  faraday
   haml-rails
   jazz_hands
   jbuilder (~> 1.2)

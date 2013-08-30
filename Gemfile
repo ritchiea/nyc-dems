@@ -45,6 +45,8 @@ group :development do
   gem 'jazz_hands'
 end
 
+gem 'faraday'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

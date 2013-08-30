@@ -10,5 +10,17 @@ $ ->
   $(document).on 'ready page:load', () ->
     initialize()
 
-  $('#add-endorsement').on 'click', () ->
+  $(document).on 'click','#add-endorsement', () ->
     $('#address-form-container').fadeIn(300)
+
+  $(document).on 'click', '#find-me', (e) ->
+    e.preventDefault()
+    street = $('#address').val().replace(/\ /g,'+')
+    city = $('#city').val().replace(/\ /g,'+')
+    zip = $('#zip').val().replace(/\ /g,'+')
+    address = [street,city,'NY',zip].join(',')
+    console.log address
+    $.ajax({
+      url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address })
+        .done (data) ->
+          console.log data
