@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130830034027) do
+ActiveRecord::Schema.define(version: 20130830053651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,9 +22,11 @@ ActiveRecord::Schema.define(version: 20130830034027) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.spatial  "lonlat",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.spatial  "lonlat",       limit: {:srid=>4326, :type=>"point", :geographic=>true}
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "neighborhood"
+    t.string   "county"
   end
 
   create_table "endorsements", force: true do |t|

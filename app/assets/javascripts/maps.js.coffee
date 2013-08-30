@@ -21,6 +21,9 @@ $ ->
     address = [street,city,'NY',zip].join(',')
     console.log address
     $.ajax({
-      url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address })
+      url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false' })
         .done (data) ->
-          console.log data
+          console.log data['results']
+          console.log data['results'][0]['address_components']
+          console.log data['results'][0]['geometry']
+
