@@ -7,6 +7,12 @@ $ ->
       mapTypeId: google.maps.MapTypeId.ROADMAP
     window.map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions)
 
+#  loadScript = () ->
+#    script = document.createElement('script')
+#    script.type = "text/javascript"
+#    script.src = "http://maps.googleapis.com/maps/api/js?key="+$('body').data('maps')+"&sensor=false&callback=initialize"
+#    document.body.appendChild(script)
+    
   $(document).on 'ready page:load', () ->
     initialize()
 
@@ -19,11 +25,16 @@ $ ->
     city = $('#city').val().replace(/\ /g,'+')
     zip = $('#zip').val().replace(/\ /g,'+')
     address = [street,city,'NY',zip].join(',')
-    console.log address
     $.ajax({
       url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false' })
         .done (data) ->
-          console.log data['results']
-          console.log data['results'][0]['address_components']
-          console.log data['results'][0]['geometry']
+          location = parseResults data.results[0]
+          window.map.panTo( new google.maps.LatLng(location.lat, location.lng) )
+          window.map.setZoom( window.map.getZoom()+2 )
 
+  parseResults = (data) ->
+    location =
+      hood: data.address_components[2].long_name
+      county: data.address_components[5].long_name
+      lat: data.geometry.location.lat
+      lng: data.geometry.location.lng
