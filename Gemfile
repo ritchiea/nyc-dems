@@ -45,6 +45,7 @@ group :development do
   gem 'jazz_hands'
 end
 
+gem 'simple_form'
 gem 'faraday'
 
 # Use ActiveModel has_secure_password

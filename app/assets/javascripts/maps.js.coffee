@@ -1,4 +1,6 @@
 $ ->
+  pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
+
   initialize = () ->
     google.maps.visualRefresh = true
     mapOptions = 
@@ -24,9 +26,25 @@ $ ->
       url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false' })
         .done (data) ->
           location = parseResults data.results[0]
-          $('#find-me').fadeOut(300)
-          window.map.panTo( new google.maps.LatLng(location.lat, location.lng) )
+          $('#address-form-container').fadeOut(300)
+          address = new google.maps.LatLng(location.lat, location.lng)
+          window.map.panTo( address )
           window.map.setZoom( window.map.getZoom()+3 )
+          marker = createMarker address, 'My Home'
+          infoWindow = createFormWindow()
+          infoWindow.open map, marker
+
+  createFormWindow = () ->
+    new google.maps.InfoWindow({
+      content: $('#endorsement-form').html() })
+
+  createMarker = (address, title) ->
+    pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D") 
+    marker = new google.maps.Marker({
+      position: address
+      map: map
+      icon: pinImage,
+      title: title })
 
   parseResults = (data) ->
     location =
