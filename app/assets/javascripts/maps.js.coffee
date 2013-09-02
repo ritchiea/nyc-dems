@@ -33,11 +33,17 @@ $ ->
           location = parseResults data.results[0]
           $('#address-form-container').fadeOut(300)
           address = new google.maps.LatLng(location.lat, location.lng)
+          console.log location
           map.panTo( address )
           map.setZoom( window.map.getZoom()+3 )
           marker = createMarker address, 'My Home'
           infoWindow = new InfoBox(infoBoxOptions)
           infoWindow.open map, marker
+          $.ajax({
+            type: 'POST'
+            url: '/building/?lat='+location.lat+'&lon='+location.lng })
+              .done (data) ->
+                console.log data
 
   createMarker = (address, title) ->
     pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D") 

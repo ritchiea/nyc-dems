@@ -1,5 +1,7 @@
 #endorsement-form.hide
-  = simple_form_for @endorsement, url: '/new_endorsement/', remnote: true do |f|
+  = simple_form_for @endorsement, url: '/new_endorsement/', remote: true do |f|
     = f.input :candidate_id, collection: Candidate.all
     = f.input :description
+    = f.hidden_field :building_id
+    = f.hidden_field :unit
     = f.button :submit

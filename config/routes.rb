@@ -2,6 +2,7 @@ NycDems::Application.routes.draw do
 
   root 'home#index'
   post '/new_endorsement/', to: 'ajax#endorsement'
+  post '/building/', to: 'ajax#building'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
