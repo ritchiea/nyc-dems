@@ -1,8 +1,11 @@
 $ ->
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
+  # this is an ugly hack
+  building = {}
+  window.intervals = []
 
   infoBoxOptions = 
-    content: $('#endorsement-form').html() 
+    content: $('body').data('form')
     boxStyle:
       backgroundColor: 'rgba(32, 32, 32, 0.5)'
 
@@ -39,18 +42,27 @@ $ ->
           marker = createMarker latlon, 'My Home'
           infoWindow = new InfoBox(infoBoxOptions)
           infoWindow.open map, marker
+          callBuildingAjax()
           setEndorsementFormHandler()
-          $.ajax({
-            type: 'POST'
-            url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+address[0]+'&hood='+location.hood+'&county='+location.county })
-              .done (data) ->
-                $(document).find('input[id=endorsement_building_id]').val(data.id)
-                #$('input[id=endorsement_building_id]').val(data.id)
+          false
 
   setEndorsementFormHandler = () ->
     $(document).on 'ajax:success', '#new_endorsement', (e, data, status, xhr) ->
-      console.log data
-      console.log status
+      clearInterval intervals[0]
+
+  setBuildingID = () ->
+    if $('#new_endorsement').length != 0
+      $('#new_endorsement input[id=endorsement_building_id]').val(building.id)
+
+  callBuildingAjax = () ->
+    $.ajax({
+      type: 'POST'
+      async: false
+      url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+address[0]+'&hood='+location.hood+'&county='+location.county })
+        .done (data) ->
+          building = data
+          intervalID = setInterval(setBuildingID, 50)
+          intervals << intervalID
 
   createMarker = (latlon, title) ->
     pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D") 
