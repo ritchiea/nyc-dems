@@ -1,8 +1,10 @@
 $ ->
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
-  # this is an ugly hack
+  # this is an ugly hack because the dom fails to update in time for ajax to set building_id
   building = {}
   window.intervals = []
+
+  infoWindow = {}
 
   infoBoxOptions = 
     content: $('body').data('form')
@@ -48,23 +50,22 @@ $ ->
 
   setEndorsementFormHandler = () ->
     $(document).on 'ajax:success', '#new_endorsement', (e, data, status, xhr) ->
+      infoWindow.close()
 
   setBuildingID = () ->
-    console.log 'called!'
     if $('#new_endorsement').length != 0
       $('#new_endorsement input[id=endorsement_building_id]').val(building.id)
       clearInterval window.intervals[0]
 
-
   callBuildingAjax = () ->
     $.ajax({
       type: 'POST'
-      async: false
       url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+address[0]+'&hood='+location.hood+'&county='+location.county })
         .done (data) ->
           building = data
           intervalID = setInterval(setBuildingID, 50)
           window.intervals.push(intervalID)
+          false
 
   createMarker = (latlon, title) ->
     pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D") 
