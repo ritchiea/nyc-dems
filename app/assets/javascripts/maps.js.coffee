@@ -1,7 +1,6 @@
 $ ->
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
   # this is an ugly hack because the dom fails to update in time for ajax to set building_id
-  building = {}
   intervals = []
 
   infoWindow = {}
@@ -36,7 +35,6 @@ $ ->
     $.ajax({
       url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address.join(',')+'&sensor=false' })
         .done (data) ->
-          console.log data
           location = parseResults data.results[0]
           $('#address-form-container').fadeOut(300)
           latlon = new google.maps.LatLng(location.lat, location.lng)
