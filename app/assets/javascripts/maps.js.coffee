@@ -2,19 +2,19 @@ $ ->
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
   # this is an ugly hack because the dom fails to update in time for ajax to set building_id
   building = {}
-  window.intervals = []
+  intervals = []
 
   infoWindow = {}
 
-  infoBoxOptions = 
+  infoBoxOptions =
     content: $('body').data('form')
     boxStyle:
       backgroundColor: 'rgba(32, 32, 32, 0.5)'
 
   initialize = () ->
-    $('#endorsement-form').remove() 
+    $('#endorsement-form').remove()
     google.maps.visualRefresh = true
-    mapOptions = 
+    mapOptions =
       center: new google.maps.LatLng(40.7492119, -73.8689525)
       zoom: 13
       mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -36,6 +36,7 @@ $ ->
     $.ajax({
       url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address.join(',')+'&sensor=false' })
         .done (data) ->
+          console.log data
           location = parseResults data.results[0]
           $('#address-form-container').fadeOut(300)
           latlon = new google.maps.LatLng(location.lat, location.lng)
@@ -43,10 +44,28 @@ $ ->
           map.setZoom( window.map.getZoom()+3 )
           marker = createMarker latlon, 'My Home'
           infoWindow = new InfoBox(infoBoxOptions)
+          callBuildingAjax location, address
           infoWindow.open map, marker
-          callBuildingAjax()
           setEndorsementFormHandler()
           false
+
+  callBuildingAjax = (location, address) ->
+    $.ajax({
+      type: 'POST'
+      url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+address[0]+'&hood='+location.hood+'&county='+location.county })
+        .done (data) ->
+          building = data
+          intervalID = delayInterval 50, () ->
+            do (building = building) ->
+              if $('#new_endorsement').length != 0
+                $('#new_endorsement input[id=endorsement_building_id]').val(building.id)
+                clearInterval intervals[0]
+              false
+          intervals.push(intervalID)
+          false
+
+  delayInterval = (ms, func) ->
+    setInterval func, ms
 
   setEndorsementFormHandler = () ->
     $(document).on 'ajax:success', '#new_endorsement', (e, data, status, xhr) ->
@@ -55,20 +74,10 @@ $ ->
   setBuildingID = () ->
     if $('#new_endorsement').length != 0
       $('#new_endorsement input[id=endorsement_building_id]').val(building.id)
-      clearInterval window.intervals[0]
-
-  callBuildingAjax = () ->
-    $.ajax({
-      type: 'POST'
-      url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+address[0]+'&hood='+location.hood+'&county='+location.county })
-        .done (data) ->
-          building = data
-          intervalID = setInterval(setBuildingID, 50)
-          window.intervals.push(intervalID)
-          false
+      clearInterval intervals[0]
 
   createMarker = (latlon, title) ->
-    pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D") 
+    pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D")
     new google.maps.Marker
       position: latlon
       map: map
