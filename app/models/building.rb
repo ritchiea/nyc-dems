@@ -9,4 +9,6 @@ class Building < ActiveRecord::Base
 
   alias_method :latitude, :x
   alias_method :longitude, :y
+  alias_method :lat, :x
+  alias_method :lng, :y
 end
