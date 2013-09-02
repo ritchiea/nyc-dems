@@ -1,5 +1,5 @@
 #endorsement-form.hide
-  = simple_form_for @endorsement do |f|
+  = simple_form_for @endorsement, url: '/new_endorsement/', remnote: true do |f|
     = f.input :candidate_id, collection: Candidate.all
     = f.input :description
     = f.button :submit
