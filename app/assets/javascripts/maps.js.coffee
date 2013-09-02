@@ -36,7 +36,8 @@ $ ->
 
   createFormWindow = () ->
     new google.maps.InfoWindow({
-      content: $('#endorsement-form').html() })
+      content: $('#endorsement-form').html() 
+      backgroundColor: 'rgb(57,57,57)' })
 
   createMarker = (address, title) ->
     pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D") 
