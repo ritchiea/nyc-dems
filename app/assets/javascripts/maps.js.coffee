@@ -48,11 +48,13 @@ $ ->
 
   setEndorsementFormHandler = () ->
     $(document).on 'ajax:success', '#new_endorsement', (e, data, status, xhr) ->
-      clearInterval intervals[0]
 
   setBuildingID = () ->
+    console.log 'called!'
     if $('#new_endorsement').length != 0
       $('#new_endorsement input[id=endorsement_building_id]').val(building.id)
+      clearInterval window.intervals[0]
+
 
   callBuildingAjax = () ->
     $.ajax({
@@ -62,7 +64,7 @@ $ ->
         .done (data) ->
           building = data
           intervalID = setInterval(setBuildingID, 50)
-          intervals << intervalID
+          window.intervals.push(intervalID)
 
   createMarker = (latlon, title) ->
     pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D") 
