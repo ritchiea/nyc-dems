@@ -8,7 +8,7 @@ gem 'rails', '4.0.0'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
 
-gem 'ember-rails'
+#gem 'ember-rails'
 #gem 'ember-source', '1.0.0.rc7'
 
 # Use SCSS for stylesheets
@@ -29,7 +29,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-#gem 'turbolinks'
+gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -44,6 +44,9 @@ group :development do
   gem "binding_of_caller"
   gem 'jazz_hands'
 end
+
+gem 'simple_form'
+gem 'faraday'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

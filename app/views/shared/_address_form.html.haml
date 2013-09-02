@@ -1,0 +1,7 @@
+#address-form-container.hide
+  %form
+    = text_field_tag 'address', nil, placeholder: 'Address'
+    = text_field_tag 'city', nil, placeholder: 'City'
+    = text_field_tag 'state', 'NY', disabled: true
+    = text_field_tag 'zip', nil, placeholder: 'Zip'
+    = submit_tag 'Find My Address', id: 'find-me', class: 'btn btn-primary'
