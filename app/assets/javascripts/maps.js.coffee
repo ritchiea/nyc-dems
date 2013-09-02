@@ -1,6 +1,11 @@
 $ ->
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
 
+  infoBoxOptions = 
+    content: $('#endorsement-form').html() 
+    boxStyle:
+      backgroundColor: 'rgba(32, 32, 32, 0.5)'
+
   initialize = () ->
     google.maps.visualRefresh = true
     mapOptions = 
@@ -28,24 +33,19 @@ $ ->
           location = parseResults data.results[0]
           $('#address-form-container').fadeOut(300)
           address = new google.maps.LatLng(location.lat, location.lng)
-          window.map.panTo( address )
-          window.map.setZoom( window.map.getZoom()+3 )
+          map.panTo( address )
+          map.setZoom( window.map.getZoom()+3 )
           marker = createMarker address, 'My Home'
-          infoWindow = createFormWindow()
+          infoWindow = new InfoBox(infoBoxOptions)
           infoWindow.open map, marker
-
-  createFormWindow = () ->
-    new google.maps.InfoWindow({
-      content: $('#endorsement-form').html() 
-      backgroundColor: 'rgb(57,57,57)' })
 
   createMarker = (address, title) ->
     pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D") 
-    marker = new google.maps.Marker({
+    new google.maps.Marker
       position: address
       map: map
       icon: pinImage,
-      title: title })
+      title: title
 
   parseResults = (data) ->
     location =
