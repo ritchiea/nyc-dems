@@ -36,6 +36,9 @@ $ ->
   $(document).on 'ready page:load', () ->
     initialize()
 
+  $(document).on 'click','.close', () ->
+    $(@).parent().fadeToggle(300)
+
   $(document).on 'click','#add-endorsement', () ->
     $('#address-form-container').fadeIn(300)
 

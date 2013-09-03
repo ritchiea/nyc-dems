@@ -1,1 +1,16 @@
 @import "bootstrap";
+
+.close {
+  text-shadow: none;
+  margin: 3px 5px 3px 0;
+  color: rgb(245,245,245);
+  opacity: 0.75;
+  font-weight: 300;
+  &:hover {
+    text-shadow: none;
+    margin: 2px 4px 3px 0;
+    color: rgb(245,245,245);
+    opacity: .9;
+    font-weight: 300;
+  }
+}
