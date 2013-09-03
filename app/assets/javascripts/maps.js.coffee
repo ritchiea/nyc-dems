@@ -9,8 +9,7 @@ $ ->
 
   infoBoxOptions =
     boxStyle:
-      backgroundColor: 'rgb(32, 32, 32)'
-      opacity: 0.5
+      backgroundColor: 'rgba(32, 32, 32, .6)'
       width: '280px'
       color: 'rgb(235, 235, 235)'
       overflowY: 'scroll'
