@@ -11,4 +11,10 @@ class Building < ActiveRecord::Base
   alias_method :longitude, :x
   alias_method :lat, :y
   alias_method :lng, :x
+
+  scope :with_endorsements, -> { includes(:endorsements).select {|b| b.endorsements.count > 0} }
+  
+  def endorsements_count
+    endorsements.count
+  end
 end
