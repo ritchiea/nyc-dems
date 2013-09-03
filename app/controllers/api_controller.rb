@@ -1,9 +1,16 @@
 class ApiController < ApplicationController
 
-  def endorsement
+  def new_endorsement
     endorsement = Endorsement.new(endorsement_params)
     if endorsement.save
       render json: endorsement
+    end
+  end
+
+  def get_endorsements
+    endorsements = Building.find(params[:building_id]).endorsements
+    if endorsements
+      render json: endorsements
     end
   end
 

@@ -5,11 +5,15 @@ $ ->
 
   infoBoxOptions =
     boxStyle:
-      backgroundColor: 'rgba(32, 32, 32, 0.5)'
+      backgroundColor: 'rgb(32, 32, 32)'
+      opacity: 0.5
       width: '280px'
-    pixelOffset: new google.maps.Size(-140, 0)
+      color: 'rgb(235, 235, 235)'
+      overflowY: 'scroll'
+      maxHeight: '300px'
+    pixelOffset: new google.maps.Size(-140, -100)
     zIndex: null
-    closeBoxMargin: "10px 2px 2px 2px"
+    #closeBoxMargin: "10px 2px 2px 2px"
     infoBoxClearance: new google.maps.Size(1, 1)
     isHidden: false
     pane: "floatPane"
@@ -80,9 +84,16 @@ $ ->
           icon: pinImage
           title: building.address
           visible: true
+          building_id: building.id
         google.maps.event.addListener marker, 'click', ->
           infoBox.setContent marker.title
           infoBox.open map, @
+          console.log marker.building_id
+          console.log @
+          $.ajax({
+            url: '/get_endorsements/?building_id='+marker.building_id })
+              .done (data) ->
+                console.log data
     false
 
   delayInterval = (ms, func) ->
