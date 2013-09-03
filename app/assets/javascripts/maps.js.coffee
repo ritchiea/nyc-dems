@@ -1,6 +1,6 @@
 $ ->
-  pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
-  # this is an ugly hack because the dom fails to update in time for ajax to set building_id
+  window.pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
+  # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   intervals = []
 
   infoWindow = {}
@@ -11,13 +11,14 @@ $ ->
       backgroundColor: 'rgba(32, 32, 32, 0.5)'
 
   initialize = () ->
-    $('#endorsement-form').remove()
     google.maps.visualRefresh = true
     mapOptions =
       center: new google.maps.LatLng(40.7492119, -73.8689525)
       zoom: 13
       mapTypeId: google.maps.MapTypeId.ROADMAP
     window.map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions)
+    placeMarkers()
+    false
 
   $(document).on 'ready page:load', () ->
     initialize()
@@ -62,6 +63,20 @@ $ ->
           intervals.push(intervalID)
           false
 
+  placeMarkers = () ->
+    for building in window.buildings
+      do (building) ->
+        building = JSON.parse(building)
+        console.log building
+        pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D")
+        new google.maps.Marker
+          position: new google.maps.LatLng(building.lat, building.lng)
+          map: window.map
+          icon: pinImage
+          title: building.address
+          visible: true
+    false
+
   delayInterval = (ms, func) ->
     setInterval func, ms
 
@@ -79,7 +94,7 @@ $ ->
     new google.maps.Marker
       position: latlon
       map: map
-      icon: pinImage,
+      icon: pinImage
       title: title
 
   parseResults = (data) ->

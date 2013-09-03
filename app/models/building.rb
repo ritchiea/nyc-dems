@@ -7,8 +7,8 @@ class Building < ActiveRecord::Base
   delegate :x, :to => :lonlat, :allow_nil => true
   delegate :y, :to => :lonlat, :allow_nil => true
 
-  alias_method :latitude, :x
-  alias_method :longitude, :y
-  alias_method :lat, :x
-  alias_method :lng, :y
+  alias_method :latitude, :y
+  alias_method :longitude, :x
+  alias_method :lat, :y
+  alias_method :lng, :x
 end
