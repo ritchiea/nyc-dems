@@ -10,7 +10,9 @@
     = csrf_meta_tags
     = yield(:head)
   %body{'data-form' => "#{render('shared/endorsement_form')}"}
-    #add-endorsement +
+    %button#add-endorsement Add Your Endorsement +
+    #header
+      %p.lead How is NYC voting?
     #map-canvas
     #container
       = yield
