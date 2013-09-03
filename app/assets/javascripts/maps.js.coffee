@@ -45,26 +45,27 @@ $ ->
       $('#address').val().replace(/\ /g,'+'),
       $('#city').val().replace(/\ /g,'+'),
       'NY',
-      $('#zip').val().replace(/\ /g,'+')]
+      $('#zip').val().replace(/\ /g,'+')].join(',')
     $.ajax({
-      url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address.join(',')+'&sensor=false' })
+      url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false' })
         .done (data) ->
+          console.log data.results[0]
           location = parseResults data.results[0]
           $('#address-form-container').fadeOut(300)
           latlon = new google.maps.LatLng(location.lat, location.lng)
           map.panTo( latlon )
           map.setZoom( window.map.getZoom()+3 )
           marker = createMarker latlon, 'My Home'
-          callBuildingAjax location, address
+          callBuildingAjax location
           infoBox.setContent $('body').data('form')
           infoBox.open map, marker
           setEndorsementFormHandler()
           false
 
-  callBuildingAjax = (location, address) ->
+  callBuildingAjax = (location) ->
     $.ajax({
       type: 'POST'
-      url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+address[0]+'&hood='+location.hood+'&county='+location.county })
+      url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+location.address+'&hood='+location.hood+'&county='+location.county })
         .done (data) ->
           building = data
           intervalID = delayInterval 10, () ->
@@ -119,6 +120,7 @@ $ ->
 
   parseResults = (data) ->
     location =
+      address: data.formatted_address.split(',')[0]
       hood: data.address_components[2].long_name
       county: data.address_components[5].long_name
       lat: data.geometry.location.lat

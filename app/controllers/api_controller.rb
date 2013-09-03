@@ -19,7 +19,7 @@ class ApiController < ApplicationController
     building = Building.find_or_create_by_lonlat(point)
     if building.created_at > (Time.now-3) #this is a hack
       building.update_attributes({neighborhood: params[:hood],
-                                  address: params[:address].gsub('+',' '),
+                                  address: params[:address],
                                   county: params[:county],
                                   state: 'NY'})
     end
