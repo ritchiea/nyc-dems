@@ -5,6 +5,10 @@ class Endorsement < ActiveRecord::Base
 
   validates :candidate_id, presence: true
 
+  def name
+    candidate.name
+  end
+
   def photo_url
     candidate.photo_url
   end

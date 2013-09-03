@@ -10,7 +10,7 @@ class ApiController < ApplicationController
   def get_endorsements
     endorsements = Building.find(params[:building_id]).endorsements
     if endorsements
-      render json: endorsements.to_json(methods: :photo_url)
+      render json: endorsements.to_json(methods: [:name, :photo_url ])
     end
   end
 
