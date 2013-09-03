@@ -1,14 +1,20 @@
 $ ->
-  window.pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
+  pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
   # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   intervals = []
 
-  infoWindow = {}
-
   infoBoxOptions =
-    content: $('body').data('form')
     boxStyle:
       backgroundColor: 'rgba(32, 32, 32, 0.5)'
+      width: '280px'
+    pixelOffset: new google.maps.Size(-140, 0)
+    zIndex: null
+    closeBoxMargin: "10px 2px 2px 2px"
+    infoBoxClearance: new google.maps.Size(1, 1)
+    isHidden: false
+    pane: "floatPane"
+
+  infoBox = new InfoBox(infoBoxOptions)
 
   initialize = () ->
     google.maps.visualRefresh = true
@@ -42,9 +48,9 @@ $ ->
           map.panTo( latlon )
           map.setZoom( window.map.getZoom()+3 )
           marker = createMarker latlon, 'My Home'
-          infoWindow = new InfoBox(infoBoxOptions)
           callBuildingAjax location, address
-          infoWindow.open map, marker
+          infoBox.setContent $('body').data('form')
+          infoBox.open map, marker
           setEndorsementFormHandler()
           false
 
@@ -67,14 +73,16 @@ $ ->
     for building in window.buildings
       do (building) ->
         building = JSON.parse(building)
-        console.log building
         pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D")
-        new google.maps.Marker
+        marker = new google.maps.Marker
           position: new google.maps.LatLng(building.lat, building.lng)
           map: window.map
           icon: pinImage
           title: building.address
           visible: true
+        google.maps.event.addListener marker, 'click', ->
+          infoBox.setContent marker.title
+          infoBox.open map, @
     false
 
   delayInterval = (ms, func) ->
