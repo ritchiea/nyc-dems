@@ -1,7 +1,11 @@
 $ ->
+  _.templateSettings =
+    interpolate : /\{\{(.+?)\}\}/g
+
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
   # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   intervals = []
+
 
   infoBoxOptions =
     boxStyle:
@@ -64,7 +68,7 @@ $ ->
       url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+address[0]+'&hood='+location.hood+'&county='+location.county })
         .done (data) ->
           building = data
-          intervalID = delayInterval 50, () ->
+          intervalID = delayInterval 10, () ->
             do (building = building) ->
               if $('#new_endorsement').length != 0
                 $('#new_endorsement input[id=endorsement_building_id]').val(building.id)
@@ -86,14 +90,17 @@ $ ->
           visible: true
           building_id: building.id
         google.maps.event.addListener marker, 'click', ->
-          infoBox.setContent marker.title
-          infoBox.open map, @
-          console.log marker.building_id
-          console.log @
           $.ajax({
             url: '/get_endorsements/?building_id='+marker.building_id })
               .done (data) ->
                 console.log data
+                template = _.template($('#endorsement-show').html())
+                $votes = $('<div></div>')
+                for endorsement in data
+                  $votes.append template(endorsement)
+                infoBox.setContent $votes.html()
+                infoBox.open map, marker
+
     false
 
   delayInterval = (ms, func) ->
@@ -101,12 +108,7 @@ $ ->
 
   setEndorsementFormHandler = () ->
     $(document).on 'ajax:success', '#new_endorsement', (e, data, status, xhr) ->
-      infoWindow.close()
-
-  setBuildingID = () ->
-    if $('#new_endorsement').length != 0
-      $('#new_endorsement input[id=endorsement_building_id]').val(building.id)
-      clearInterval intervals[0]
+      infoBox.close()
 
   createMarker = (latlon, title) ->
     pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D")

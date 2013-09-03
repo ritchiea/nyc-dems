@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require ./vendor/infobox
+//= require ./vendor/underscore-min
 //= require_tree .
