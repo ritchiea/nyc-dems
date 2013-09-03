@@ -14,9 +14,11 @@
     #header
       %p.lead How is NYC voting?
     #map-canvas
+    %a#about-button About
     #container
       = yield
       / ! end of #container
+    = render 'shared/about'
     = render 'shared/address_form'
     = render 'shared/building_template'
     

@@ -5,7 +5,7 @@ $ ->
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
   # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   intervals = []
-
+  window.markers = []
 
   infoBoxOptions =
     boxStyle:
@@ -40,6 +40,11 @@ $ ->
     e.preventDefault()
     $(@).parent().fadeToggle(300)
 
+  $(document).on 'click','#about-button', (e) ->
+    e.preventDefault()
+    console.log 'omglol'
+    $('#about').fadeIn(300)
+
   $(document).on 'click','#add-endorsement', () ->
     $('#address-form-container').fadeIn(300)
 
@@ -59,12 +64,20 @@ $ ->
           latlon = new google.maps.LatLng(location.lat, location.lng)
           map.panTo( latlon )
           map.setZoom( window.map.getZoom()+3 )
-          marker = createMarker latlon, 'My Home'
+          if getMarker(latlon) is undefined
+            marker = createMarker latlon, 'My Home'
+          else
+            marker = getMarker(latlon)
           callBuildingAjax location
           infoBox.setContent $('body').data('form')
           infoBox.open map, marker
           setEndorsementFormHandler()
           false
+
+  window.getMarker = (latlon) ->
+    for marker in markers
+      if marker.position is latlon
+        return marker
 
   callBuildingAjax = (location) ->
     $.ajax({
@@ -93,6 +106,7 @@ $ ->
           title: building.address
           visible: true
           building_id: building.id
+        markers.push marker
         google.maps.event.addListener marker, 'click', ->
           $.ajax({
             url: '/get_endorsements/?building_id='+marker.building_id })
