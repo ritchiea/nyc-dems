@@ -1,4 +1,5 @@
 #edit-endorsement-form-container.hide
+  %a.close x
   = simple_form_for :endorsement, url: '/edit_endorsement/', html: {id: 'edit-endorsement-form' }, remote: true do |f|
     %label Email and Password are Required to Edit
     = text_field_tag 'email', nil, placeholder: 'Email'
