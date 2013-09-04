@@ -16,7 +16,8 @@ $ ->
       maxHeight: '400px'
     pixelOffset: new google.maps.Size(-140, 0)
     zIndex: null
-    #closeBoxMargin: "10px 2px 2px 2px"
+    closeBoxMargin: "5px 5px 5px 5px"
+    closeBoxURL: "/assets/close.png"
     infoBoxClearance: new google.maps.Size(1, 1)
     isHidden: false
     pane: "floatPane"

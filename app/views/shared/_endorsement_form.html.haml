@@ -1,6 +1,6 @@
 #endorsement-form-container
   = simple_form_for @endorsement, url: '/new_endorsement/', remote: true do |f|
-    %label Which candidate do you endorse?
+    %label Which candidate are you voting for?
     = f.input :candidate_id, collection: Candidate.all, label: false
     %br
     %label Why do you support her or him?
