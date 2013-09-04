@@ -17,4 +17,10 @@ class Building < ActiveRecord::Base
   def endorsements_count
     endorsements.count
   end
+
+  def favorite_candidate
+    totals = {}
+    Candidate.all.each {|c| totals.merge!( {c.id => self.endorsements.where(candidate_id: c.id).count} ) }
+    totals.max_by {|k,v| v }[0]
+  end
 end
