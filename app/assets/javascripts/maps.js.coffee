@@ -10,11 +10,11 @@ $ ->
   infoBoxOptions =
     boxStyle:
       backgroundColor: 'rgba(32, 32, 32, .6)'
-      width: '280px'
+      width: '450px'
       color: 'rgb(235, 235, 235)'
       overflowY: 'scroll'
-      maxHeight: '300px'
-    pixelOffset: new google.maps.Size(-140, -100)
+      maxHeight: '400px'
+    pixelOffset: new google.maps.Size(-140, 0)
     zIndex: null
     #closeBoxMargin: "10px 2px 2px 2px"
     infoBoxClearance: new google.maps.Size(1, 1)
@@ -26,7 +26,7 @@ $ ->
   initialize = () ->
     google.maps.visualRefresh = true
     mapOptions =
-      center: new google.maps.LatLng(40.7492119, -73.8689525)
+      center: new google.maps.LatLng(40.749728, -73.914484)
       zoom: 13
       mapTypeId: google.maps.MapTypeId.ROADMAP
     window.map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions)

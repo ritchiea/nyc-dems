@@ -139,3 +139,23 @@ p {
     font-size: 24pt;
   }
 }
+
+#endorsement-form-container {
+  .input {
+    margin-top: 8px;
+  }
+  form {
+    margin: 20px;
+  }
+  label {
+    font-size: 18pt;
+    color: rgb(240,240,240);
+    font-weight: 200;
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+  }
+  textarea {
+    width: 400px;
+    height: 90px;
+    border-radius: 0 !important;
+  }
+}

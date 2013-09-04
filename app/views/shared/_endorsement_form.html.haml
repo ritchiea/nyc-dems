@@ -1,8 +1,11 @@
-#endorsement-form
-  .endorsement
-    = simple_form_for @endorsement, url: '/new_endorsement/', remote: true do |f|
-      = f.input :candidate_id, collection: Candidate.all
-      = f.input :description
-      = f.input :building_id, as: :hidden
-      = f.input :ip_address, as: :hidden, input_html: { value: "#{@client_ip}" }
-      = f.button :submit
+#endorsement-form-container
+  = simple_form_for @endorsement, url: '/new_endorsement/', remote: true do |f|
+    %label Which candidate do you endorse?
+    = f.input :candidate_id, collection: Candidate.all, label: false
+    %br
+    %label Why do you support him/her?
+    = f.input :description, label: false
+    = f.input :building_id, as: :hidden
+    = f.input :ip_address, as: :hidden, input_html: { value: "#{@client_ip}" }
+    %br
+    = f.button :submit, class: 'btn btn-primary'
