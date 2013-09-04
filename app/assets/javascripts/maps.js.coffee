@@ -38,6 +38,7 @@ $ ->
     false
 
   $(document).on 'ready page:load', () ->
+    $('#add-endorsement').remove() if $.cookie("voted") is true
     initialize()
     infoBoxOptions.boxStyle.width = '320px' if $('body').width() < 481
 
@@ -154,6 +155,7 @@ $ ->
 
   setEndorsementFormHandler = (marker) ->
     $(document).on 'ajax:success', '#new_endorsement', (e, data, status, xhr) ->
+      $.cookie "voted", true, { expires: 7, path: '/' }
       $('#add-endorsement').fadeOut(300) if $('#add-endorsement').css('display') isnt 'none'
       $('#endorsement-form-container').empty().append('<p class="success">Endorsement saved!</p>')
       setDelay 2000, () ->
