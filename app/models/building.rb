@@ -19,8 +19,9 @@ class Building < ActiveRecord::Base
   end
 
   def favorite_candidate
-    totals = {}
-    Candidate.all.each {|c| totals.merge!( {c.id => self.endorsements.where(candidate_id: c.id).count} ) }
-    totals.max_by {|k,v| v }[0]
+    totals = Candidate.all.map {|c| {c.id => self.endorsements.where(candidate_id: c.id).count} }
+    totals.sort! {|x,y| y[y.keys.first] <=> x[x.keys.first] }
+    first, second = totals[0], totals[1]
+    first.values.first > second.values.first ? first.keys.first : nil
   end
 end

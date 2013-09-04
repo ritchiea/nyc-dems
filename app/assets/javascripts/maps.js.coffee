@@ -124,6 +124,7 @@ $ ->
       when 3 then '68228B'
       when 4 then 'B2B200'
       when 5 then '458B00'
+      else 'CCCCCC'
 
   setMarkerClickEvent = (marker) ->
     google.maps.event.addListener marker, 'click', ->
