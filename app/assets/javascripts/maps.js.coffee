@@ -138,10 +138,15 @@ $ ->
   delayInterval = (ms, func) ->
     setInterval func, ms
 
+  setDelay = (ms, func) ->
+    setTimeout func, ms
+
   setEndorsementFormHandler = (marker) ->
     $(document).on 'ajax:success', '#new_endorsement', (e, data, status, xhr) ->
       $('#add-endorsement').fadeOut(300) if $('#add-endorsement').css('display') isnt 'none'
-      infoBox.close()
+      $('#endorsement-form-container').empty().append('<p class="success">Endorsement saved!</p>')
+      setDelay 2000, () ->
+        infoBox.close()
       setMarkerClickEvent marker
 
   createMarker = (latlon, title) ->

@@ -164,6 +164,13 @@ p {
     height: 90px;
     border-radius: 0 !important;
   }
+  p {
+  &.success {
+    text-align: center;
+    font-size: 18pt;
+    padding: 20px 0 20px 0; 
+  }
+  }
 }
 
 .endorsements-container {
