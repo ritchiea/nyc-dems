@@ -60,6 +60,7 @@ $ ->
           location = parseResults data.results[0]
           $('#address-form-container').fadeOut(300)
           latlon = new google.maps.LatLng(location.lat, location.lng)
+          $('#about').fadeOut(300) if $('#about').css('display') isnt 'none'
           map.panTo( latlon )
           map.setZoom( window.map.getZoom()+4 ) if map.getZoom() isnt 17
           if getMarker(latlon) is undefined
@@ -127,6 +128,7 @@ $ ->
 
   setEndorsementFormHandler = (marker) ->
     $(document).on 'ajax:success', '#new_endorsement', (e, data, status, xhr) ->
+      $('#add-endorsement').fadeOut(300) if $('#add-endorsement').css('display') isnt 'none'
       infoBox.close()
       setMarkerClickEvent marker
 
