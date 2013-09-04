@@ -7,7 +7,9 @@ require 'active_record/connection_adapters/postgis_adapter/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-ENV.update YAML.load_file('config/application.yml') #[Rails.env] rescue {}
+if Rails.env == 'development'
+  ENV.update YAML.load_file('config/application.yml') #[Rails.env] rescue {}
+end
 
 module NycDems
   class Application < Rails::Application
@@ -22,5 +24,27 @@ module NycDems
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+  end
+end
+
+class ActiveRecordOverrideRailtie < Rails::Railtie
+  initializer "active_record.initialize_database.override" do |app|
+
+    ActiveSupport.on_load(:active_record) do
+      if url = ENV['DATABASE_URL']
+        ActiveRecord::Base.connection_pool.disconnect!
+        parsed_url = URI.parse(url)
+        config =  {
+          adapter:             'postgis',
+          host:                parsed_url.host,
+          encoding:            'unicode',
+          database:            parsed_url.path.split("/")[-1],
+          port:                parsed_url.port,
+          username:            parsed_url.user,
+          password:            parsed_url.password
+        }
+        establish_connection(config)
+      end
+    end
   end
 end
