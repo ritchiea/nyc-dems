@@ -14,6 +14,10 @@ class Endorsement < ActiveRecord::Base
     building.set_favorite_candidate
   end
 
+  def user_invalid?
+    return true if user.email.blank? && user.password_blank?
+  end
+
   def name
     candidate.name
   end

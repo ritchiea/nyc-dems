@@ -3,6 +3,7 @@ class ApiController < ApplicationController
   def new_endorsement
     endorsement = Endorsement.new(endorsement_params)
     if endorsement.save
+      endorsement.user.destroy if ( endorsement.user.present? && endorsement.user_invalid? )
       render json: endorsement
     end
   end
