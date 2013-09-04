@@ -46,11 +46,12 @@ group :development do
   gem 'jazz_hands'
 end
 
+#gem 'warden'
 gem 'simple_form'
 gem 'faraday'
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0', require: 'bcrypt'
 
 # Use unicorn as the app server
 gem 'unicorn'

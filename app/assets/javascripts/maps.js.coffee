@@ -14,7 +14,7 @@ $ ->
       width: '450px'
       color: 'rgb(235, 235, 235)'
       overflowY: 'scroll'
-      maxHeight: '400px'
+      maxHeight: '440px'
     pixelOffset: new google.maps.Size(-140, 0)
     zIndex: null
     closeBoxMargin: "5px 5px 5px 5px"

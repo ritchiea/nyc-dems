@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904080337) do
+ActiveRecord::Schema.define(version: 20130904104109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(version: 20130904080337) do
     t.integer  "locationable_id"
     t.string   "locationable_type"
     t.spatial  "lonlat",            limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.integer  "endorsement_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
