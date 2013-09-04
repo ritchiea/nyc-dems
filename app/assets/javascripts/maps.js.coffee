@@ -5,13 +5,14 @@ $ ->
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
   # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   intervals = []
-  window.markers = []
+  markers = []
   ERROR = 'Sorry there was an error with your submission, please try again'
+  infoBoxWidth = ''
 
   infoBoxOptions =
     boxStyle:
       backgroundColor: 'rgba(32, 32, 32, .75)'
-      width: '450px'
+      width: infoBoxWidth
       color: 'rgb(235, 235, 235)'
       overflowY: 'scroll'
       maxHeight: '400px'
@@ -24,6 +25,13 @@ $ ->
     pane: "floatPane"
 
   infoBox = new InfoBox(infoBoxOptions)
+
+  getInfoBoxWidth = () ->
+    if $('body').width() > 481
+      width = '320px'
+    else
+      width = '450px'
+    width
 
   initialize = () ->
     google.maps.visualRefresh = true
@@ -39,6 +47,7 @@ $ ->
 
   $(document).on 'ready page:load', () ->
     initialize()
+    infoBoxWidth = getInfoBoxWidth()
 
   $(document).on 'click','.close', (e) ->
     e.preventDefault()
@@ -159,7 +168,7 @@ $ ->
         infoBox.close()
       setMarkerClickEvent marker
 
-  window.updateMap = () ->
+  updateMap = () ->
     $.ajax({
       url: '/get_buildings/' })
         .done (data) ->

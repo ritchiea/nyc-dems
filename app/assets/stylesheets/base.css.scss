@@ -11,6 +11,21 @@ $trans_black: rgba(40, 40, 40, 0.75);
   color: rgb(235,235,235);
 }
 
+@media only screen and (max-width: 480px) {
+  #add-endorsement {
+    top: 20% !important;
+  }
+  #address-form-container {
+    top: 33% !important;
+  }
+  #about {
+    top: 33% !important;
+    left: 2% !important;
+    max-width: 420px !important;
+  }
+}
+
+
 html { 
   height: 100%;
   input {
