@@ -38,7 +38,7 @@ $ ->
     false
 
   $(document).on 'ready page:load', () ->
-    $('#add-endorsement').remove() if $.cookie("voted") is 'true'
+    #$('#add-endorsement').remove() if $.cookie("voted") is 'true'
     initialize()
     infoBoxOptions.boxStyle.width = '320px' if $('body').width() < 481
 

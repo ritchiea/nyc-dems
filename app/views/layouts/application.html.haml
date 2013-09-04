@@ -12,7 +12,8 @@
     - if Rails.env == 'production'
       = render 'shared/tracking'
   %body{'data-form' => "#{render('shared/endorsement_form')}"}
-    %a#add-endorsement + Endorse a Candidate
+    - if @voted.empty?
+      %a#add-endorsement + Endorse a Candidate
     #header
       %p.lead How is NYC voting?
     #map-canvas
