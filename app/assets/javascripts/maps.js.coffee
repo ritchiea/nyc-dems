@@ -7,12 +7,11 @@ $ ->
   intervals = []
   markers = []
   ERROR = 'Sorry there was an error with your submission, please try again'
-  infoBoxWidth = ''
 
   infoBoxOptions =
     boxStyle:
       backgroundColor: 'rgba(32, 32, 32, .75)'
-      width: infoBoxWidth
+      width: '450px'
       color: 'rgb(235, 235, 235)'
       overflowY: 'scroll'
       maxHeight: '400px'
@@ -25,13 +24,6 @@ $ ->
     pane: "floatPane"
 
   infoBox = new InfoBox(infoBoxOptions)
-
-  getInfoBoxWidth = () ->
-    if $('body').width() > 481
-      width = '320px'
-    else
-      width = '450px'
-    width
 
   initialize = () ->
     google.maps.visualRefresh = true
@@ -47,7 +39,7 @@ $ ->
 
   $(document).on 'ready page:load', () ->
     initialize()
-    infoBoxWidth = getInfoBoxWidth()
+    infoBoxOptions.boxStyle.width = '320px' if $('body').width() < 481
 
   $(document).on 'click','.close', (e) ->
     e.preventDefault()
