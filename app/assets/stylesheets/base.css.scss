@@ -15,7 +15,13 @@ $trans_black: rgba(40, 40, 40, 0.75);
   #add-endorsement {
     top: 20% !important;
   }
+  #edit-endorsement {
+    top: 20% !important;
+  }
   #address-form-container {
+    top: 33% !important;
+  }
+  #edit-endorsement-form-container {
     top: 33% !important;
   }
   #about {
@@ -103,6 +109,23 @@ body {
   }
 }
 
+#edit-endorsement {
+  position: absolute;
+  cursor: pointer;
+  top: 8%;
+  right: 1%;
+  z-index: 101;
+  padding: 10px;
+  font-size: 16pt;
+  @include ui_element;
+  font-weight: 200;
+  &:hover {
+    color: rgb(255,255,255);
+    text-decoration: none;
+  }
+}
+
+
 #add-endorsement {
   position: absolute;
   cursor: pointer;
@@ -130,7 +153,30 @@ body {
     margin: 10px 0 10px 20px;
   }
 }
+#edit-endorsement-form-container {
+   p {
+  &.success {
+    text-align: center;
+    font-size: 18pt;
+    padding: 20px 0 20px 0; 
+  }
+  } 
+  position: absolute;
+  top: 15%;
+  right: 1%;
+  width: 362px;
+  z-index: 101;
+  @include ui_element;
+  form {
+    margin: 10px 0 10px 20px;
 
+}
+}
+.edit-endorsement-textarea {
+  width: 310px;
+  height: 90px;
+  border-radius: 0 !important;
+}
 .headshot {
   width: 80px;
 }

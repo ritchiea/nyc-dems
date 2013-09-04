@@ -38,9 +38,17 @@ $ ->
     false
 
   $(document).on 'ready page:load', () ->
-    $('#add-endorsement').remove() if $.cookie("voted") is 'true'
     initialize()
     infoBoxOptions.boxStyle.width = '320px' if $('body').width() < 481
+
+  $(document).ajaxComplete (e, xhr, settings) ->
+    if xhr.status is 200 and settings.url is "/edit_endorsement/"
+      console.log 'omglol'
+      $('#edit-endorsement').fadeOut(300)
+      $editForm = $('#edit-endorsement-form-container')
+      $editForm.empty().append('<p class="success">Success!</p>')
+      setDelay 2000, () ->
+        $editForm.remove()
 
   $(document).on 'click','.close', (e) ->
     e.preventDefault()
@@ -52,6 +60,9 @@ $ ->
 
   $(document).on 'click','#add-endorsement', () ->
     $('#address-form-container').fadeIn(300)
+
+  $(document).on 'click','#edit-endorsement', () ->
+    $('#edit-endorsement-form-container').fadeIn(300)
 
   $(document).on 'click', '#find-me', (e) ->
     e.preventDefault()

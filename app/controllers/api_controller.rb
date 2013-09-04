@@ -7,6 +7,13 @@ class ApiController < ApplicationController
     end
   end
 
+  def edit_endorsement
+    if user = User.authenticate(params[:email], params[:password])
+      user.endorsement.update_attributes endorsement_params
+      render json: user
+    end
+  end
+
   def get_endorsements
     endorsements = Building.find(params[:building_id]).endorsements
     if endorsements
