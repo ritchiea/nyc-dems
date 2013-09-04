@@ -3,7 +3,7 @@
     %label Which candidate do you endorse?
     = f.input :candidate_id, collection: Candidate.all, label: false
     %br
-    %label Why do you support him/her?
+    %label Why do you support her or him?
     = f.input :description, label: false
     = f.input :building_id, as: :hidden
     = f.input :ip_address, as: :hidden, input_html: { value: "#{@client_ip}" }
