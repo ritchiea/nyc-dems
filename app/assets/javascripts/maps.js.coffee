@@ -42,7 +42,6 @@ $ ->
 
   $(document).on 'click','#about-button', (e) ->
     e.preventDefault()
-    console.log 'omglol'
     $('#about').fadeIn(300)
 
   $(document).on 'click','#add-endorsement', () ->
@@ -58,7 +57,6 @@ $ ->
     $.ajax({
       url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false' })
         .done (data) ->
-          console.log data.results[0]
           location = parseResults data.results[0]
           $('#address-form-container').fadeOut(300)
           latlon = new google.maps.LatLng(location.lat, location.lng)
@@ -68,10 +66,10 @@ $ ->
             marker = createMarker latlon, 'My Home'
           else
             marker = getMarker(latlon)
-          callBuildingAjax location
+          callBuildingAjax location, marker
           infoBox.setContent $('body').data('form')
           infoBox.open map, marker
-          setEndorsementFormHandler()
+          setEndorsementFormHandler marker
           false
 
   getMarker = (latlon) ->
@@ -79,12 +77,13 @@ $ ->
       if marker.position is latlon
         return marker
 
-  callBuildingAjax = (location) ->
+  callBuildingAjax = (location, marker) ->
     $.ajax({
       type: 'POST'
       url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+location.address+'&hood='+location.hood+'&county='+location.county })
         .done (data) ->
           building = data
+          marker.building_id = building.id
           intervalID = delayInterval 10, () ->
             do (building = building) ->
               if $('#new_endorsement').length != 0
@@ -107,26 +106,29 @@ $ ->
           visible: true
           building_id: building.id
         markers.push marker
-        google.maps.event.addListener marker, 'click', ->
-          $.ajax({
-            url: '/get_endorsements/?building_id='+marker.building_id })
-              .done (data) ->
-                console.log data
-                template = _.template($('#endorsement-show').html())
-                $votes = $('<div></div>')
-                for endorsement in data
-                  $votes.append template(endorsement)
-                infoBox.setContent $votes.html()
-                infoBox.open map, marker
-
+        setMarkerClickEvent marker
     false
+
+  setMarkerClickEvent = (marker) ->
+    google.maps.event.addListener marker, 'click', ->
+      $.ajax({
+        url: '/get_endorsements/?building_id='+marker.building_id })
+          .done (data) ->
+            template = _.template($('#endorsement-show').html())
+            $votes = $('<div></div>')
+            for endorsement in data
+              $votes.append template(endorsement)
+            infoBox.setContent $votes.html()
+            infoBox.open map, marker
+
 
   delayInterval = (ms, func) ->
     setInterval func, ms
 
-  setEndorsementFormHandler = () ->
+  setEndorsementFormHandler = (marker) ->
     $(document).on 'ajax:success', '#new_endorsement', (e, data, status, xhr) ->
       infoBox.close()
+      setMarkerClickEvent marker
 
   createMarker = (latlon, title) ->
     pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D")
