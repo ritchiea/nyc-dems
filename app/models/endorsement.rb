@@ -5,6 +5,12 @@ class Endorsement < ActiveRecord::Base
 
   validates :candidate_id, presence: true
 
+  after_save :run_building_fave_candidate
+
+  def run_building_fave_candidate
+    building.set_favorite_candidate
+  end
+
   def name
     candidate.name
   end
