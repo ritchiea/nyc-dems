@@ -63,7 +63,7 @@ $ ->
           $('#address-form-container').fadeOut(300)
           latlon = new google.maps.LatLng(location.lat, location.lng)
           map.panTo( latlon )
-          map.setZoom( window.map.getZoom()+3 )
+          map.setZoom( window.map.getZoom()+4 ) if map.getZoom() isnt 17
           if getMarker(latlon) is undefined
             marker = createMarker latlon, 'My Home'
           else
