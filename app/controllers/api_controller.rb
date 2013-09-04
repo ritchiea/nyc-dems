@@ -29,6 +29,6 @@ class ApiController < ApplicationController
   private
 
     def endorsement_params
-      params.require(:endorsement).permit(:candidate_id, :description, :building_id)
+      params.require(:endorsement).permit(:candidate_id, :description, :building_id, :ip_address)
     end
 end
