@@ -25,7 +25,11 @@ class ApiController < ApplicationController
     end
     render json: building
   end
-   
+  
+  def get_buildings
+    buildings = Building.with_endorsements.map {|b| b.to_json(methods: [:lat,:lng]) } 
+    render json: buildings
+  end 
   private
 
     def endorsement_params

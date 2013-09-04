@@ -3,6 +3,7 @@ NycDems::Application.routes.draw do
   root 'home#index'
   post '/new_endorsement/', to: 'api#new_endorsement'
   get '/get_endorsements/', to: 'api#get_endorsements'
+  get '/get_buildings/', to: 'api#get_buildings'
   post '/building/', to: 'api#building'
 
   # The priority is based upon order of creation: first created -> highest priority.

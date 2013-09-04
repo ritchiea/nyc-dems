@@ -5,7 +5,7 @@ $ ->
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
   # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   intervals = []
-  markers = []
+  window.markers = []
   ERROR = 'Sorry there was an error with your submission, please try again'
 
   infoBoxOptions =
@@ -33,7 +33,8 @@ $ ->
       scrollwheel: false
       mapTypeId: google.maps.MapTypeId.ROADMAP
     window.map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions)
-    placeMarkers()
+    placeMarkers(window.buildings)
+    delayInterval 3000, updateMap
     false
 
   $(document).on 'ready page:load', () ->
@@ -101,8 +102,8 @@ $ ->
         .fail () ->
           alert ERROR
 
-  placeMarkers = () ->
-    for building in window.buildings
+  placeMarkers = (buildings) ->
+    for building in buildings
       do (building) ->
         building = JSON.parse(building)
         pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|"+candidateColor(building.favorite_candidate)+"|0D0D0D")
@@ -158,8 +159,17 @@ $ ->
         infoBox.close()
       setMarkerClickEvent marker
 
+  window.updateMap = () ->
+    $.ajax({
+      url: '/get_buildings/' })
+        .done (data) ->
+          for marker in markers
+            do (marker = marker) ->
+              marker.setMap null
+          placeMarkers(data)
+
   createMarker = (latlon, title) ->
-    pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D")
+    pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|CCCCCC|0D0D0D")
     new google.maps.Marker
       position: latlon
       map: map
