@@ -6,6 +6,7 @@ $ ->
   # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   intervals = []
   markers = []
+  ERROR = 'Sorry there was an error with your submission, please try again'
 
   infoBoxOptions =
     boxStyle:
@@ -66,7 +67,7 @@ $ ->
           map.panTo( latlon )
           map.setZoom( window.map.getZoom()+4 ) if map.getZoom() isnt 17
           if getMarker(latlon) is undefined
-            marker = createMarker latlon, 'My Home'
+            marker = createMarker latlon, 'My Building'
           else
             marker = getMarker(latlon)
           callBuildingAjax location, marker
@@ -74,6 +75,8 @@ $ ->
           infoBox.open map, marker
           setEndorsementFormHandler marker
           false
+        .fail () ->
+          alert ERROR
 
   getMarker = (latlon) ->
     for marker in markers
@@ -95,6 +98,8 @@ $ ->
               false
           intervals.push(intervalID)
           false
+        .fail () ->
+          alert ERROR
 
   placeMarkers = () ->
     for building in window.buildings
@@ -127,6 +132,8 @@ $ ->
             boxText.innerHTML = ( buildingCompile(marker) + $votes.html() )
             infoBox.setContent boxText
             infoBox.open map, marker
+        .fail () ->
+          alert 'Sorry there was an error loading endorsements from the server, please try again'
 
   delayInterval = (ms, func) ->
     setInterval func, ms
