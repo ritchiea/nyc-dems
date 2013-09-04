@@ -115,13 +115,15 @@ $ ->
       $.ajax({
         url: '/get_endorsements/?building_id='+marker.building_id })
           .done (data) ->
-            template = _.template($('#endorsement-show').html())
+            compile = _.template($('#endorsement-show').html())
             $votes = $('<div></div>')
             for endorsement in data
-              $votes.append template(endorsement)
-            infoBox.setContent $votes.html()
+              $votes.append compile(endorsement)
+            boxText = document.createElement("div")
+            boxText.className = 'endorsements-container'
+            boxText.innerHTML = $votes.html()
+            infoBox.setContent boxText
             infoBox.open map, marker
-
 
   delayInterval = (ms, func) ->
     setInterval func, ms
