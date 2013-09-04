@@ -1,4 +1,4 @@
-$trans_black: rgba(32, 32, 32, 0.5);
+$trans_black: rgba(40, 40, 40, 0.75);
 
 @mixin center {
   display: block;
@@ -8,7 +8,7 @@ $trans_black: rgba(32, 32, 32, 0.5);
 
 @mixin ui_element {
   background-color: $trans_black;
-  color: rgb(240,240,240);
+  color: rgb(235,235,235);
 }
 
 html { 
@@ -62,7 +62,7 @@ body {
   font-size: 16pt;
   font-weight: 200;
   padding: 7px;
-  color: rgb(240,240,240);
+  color: rgb(235,235,235);
   letter-spacing: 0.75pt;
   &:hover {
     text-decoration: none;
@@ -71,8 +71,8 @@ body {
 }
 
 #about {
-  background-color: rgba(32, 32, 32, 0.75);
-  color: rgb(240,240,240);
+  background-color: rgba(40, 40, 40, 0.75);
+  color: rgb(235,235,235);
   position: absolute;
   top: 20%;
   left: 20%;
@@ -94,12 +94,13 @@ body {
   top: 8%;
   right: 1%;
   z-index: 101;
-  height: 36px;
+  padding: 10px;
   font-size: 16pt;
   @include ui_element;
   font-weight: 200;
   &:hover {
     color: rgb(255,255,255);
+    text-decoration: none;
   }
 }
 
@@ -120,10 +121,12 @@ body {
 }
 
 .endorsement-container {
-  display: inline !important;
+  border-bottom: 1px solid rgb(235,235,235);
+  margin-top: 11px;
 }
 
 .endorsement-description {
+  width: 305px;
   float: right;
 }
 
@@ -152,7 +155,7 @@ p {
   }
   label {
     font-size: 18pt;
-    color: rgb(240,240,240);
+    color: rgb(235,235,235);
     font-weight: 200;
     font-family: 'Helvetica Neue', Helvetica, Arial;
   }
@@ -161,4 +164,34 @@ p {
     height: 90px;
     border-radius: 0 !important;
   }
+}
+
+.endorsements-container {
+  padding: 15px;
+}
+
+.endorsement-container {
+  p {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    font-weight: 200;
+    font-size: 12pt;
+    color: rgb(235,235,235);
+    &.description {
+      font-size: 10pt;
+    }
+  }
+}
+
+.building-header {
+  text-align: center;
+  font-family: 'Helvetica Neue', Helvetica, Arial !important;
+  font-weight: 500 !important;
+  font-size: 14pt !important;
+  color: rgb(235,235,235) !important;
+  margin: -10px 0 7px 0 !important;
+}
+
+.candidate-name {
+  margin-left: -10px;
+  margin-top: 4px;
 }

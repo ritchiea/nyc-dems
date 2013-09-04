@@ -9,7 +9,7 @@ $ ->
 
   infoBoxOptions =
     boxStyle:
-      backgroundColor: 'rgba(32, 32, 32, .6)'
+      backgroundColor: 'rgba(32, 32, 32, .75)'
       width: '450px'
       color: 'rgb(235, 235, 235)'
       overflowY: 'scroll'
@@ -28,6 +28,7 @@ $ ->
     mapOptions =
       center: new google.maps.LatLng(40.749728, -73.914484)
       zoom: 13
+      scrollwheel: false
       mapTypeId: google.maps.MapTypeId.ROADMAP
     window.map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions)
     placeMarkers()
@@ -121,7 +122,8 @@ $ ->
               $votes.append compile(endorsement)
             boxText = document.createElement("div")
             boxText.className = 'endorsements-container'
-            boxText.innerHTML = $votes.html()
+            buildingCompile = _.template($('#building-show').html())
+            boxText.innerHTML = ( buildingCompile(marker) + $votes.html() )
             infoBox.setContent boxText
             infoBox.open map, marker
 

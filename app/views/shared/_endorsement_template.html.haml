@@ -1,0 +1,10 @@
+%script#endorsement-show{ type: 'text/template'}
+  .endorsement-container
+    .endorsement-description
+      %p.description
+        {{ description }}
+    .candidate-photo
+      %img.headshot{ src: '{{ photo_url }}' }
+    .candidate-name
+      %p
+        {{ name }}
