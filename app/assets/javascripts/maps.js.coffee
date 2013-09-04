@@ -5,7 +5,7 @@ $ ->
   pinURL = "http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld="
   # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   intervals = []
-  window.markers = []
+  markers = []
 
   infoBoxOptions =
     boxStyle:
@@ -74,7 +74,7 @@ $ ->
           setEndorsementFormHandler()
           false
 
-  window.getMarker = (latlon) ->
+  getMarker = (latlon) ->
     for marker in markers
       if marker.position is latlon
         return marker
