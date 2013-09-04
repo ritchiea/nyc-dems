@@ -105,7 +105,7 @@ $ ->
     for building in window.buildings
       do (building) ->
         building = JSON.parse(building)
-        pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|42C0FB|0D0D0D")
+        pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|"+candidateColor(building.favorite_candidate)+"|0D0D0D")
         marker = new google.maps.Marker
           position: new google.maps.LatLng(building.lat, building.lng)
           map: window.map
@@ -116,6 +116,14 @@ $ ->
         markers.push marker
         setMarkerClickEvent marker
     false
+
+  candidateColor = (fave) ->
+    switch fave
+      when 1 then 'A52A2A'
+      when 2 then '42C0FB'
+      when 3 then '68228B'
+      when 4 then 'B2B200'
+      when 5 then '458B00'
 
   setMarkerClickEvent = (marker) ->
     google.maps.event.addListener marker, 'click', ->
