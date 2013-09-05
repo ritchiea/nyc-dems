@@ -193,6 +193,8 @@ body {
 
 .endorsement-description {
   width: 305px;
+  max-height: 98px;
+  overflow-y: scroll;
   float: right;
 }
 
