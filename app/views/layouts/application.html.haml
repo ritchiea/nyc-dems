@@ -13,9 +13,9 @@
       = render 'shared/tracking'
   %body{'data-form' => "#{render('shared/endorsement_form')}"}
     - if @voted.blank?
-      %a#add-endorsement + Endorse a Candidate
+      %a#add-endorsement + Say Something About a Candidate
     - else
-      %a#edit-endorsement Edit an Endorsement
+      %a#edit-endorsement Edit Your Endorsement
 
     #header
       %p.lead How is NYC voting?

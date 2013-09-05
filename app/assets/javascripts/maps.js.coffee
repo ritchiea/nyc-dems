@@ -44,7 +44,6 @@ $ ->
 
   $(document).ajaxComplete (e, xhr, settings) ->
     if xhr.status is 200 and settings.url is "/edit_endorsement/"
-      console.log 'omglol'
       $('#edit-endorsement').fadeOut(300)
       $editForm = $('#edit-endorsement-form-container')
       $editForm.empty().append('<p class="success">Success!</p>')
