@@ -6,6 +6,7 @@ NycDems::Application.routes.draw do
   get '/get_endorsements/', to: 'api#get_endorsements'
   get '/get_buildings/', to: 'api#get_buildings'
   post '/building/', to: 'api#building'
+  get '/:id', to: 'home#show', as: 'endorsement'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

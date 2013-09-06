@@ -3,6 +3,8 @@
     .endorsement-description
       %p.description
         {{ description }}
+        %br
+        %a{href:'/{{ id }}' } permalink
     .candidate-photo
       %img.headshot{ src: '{{ photo_url }}' }
     .candidate-name

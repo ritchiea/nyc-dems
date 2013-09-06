@@ -6,7 +6,7 @@ $ ->
   # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   # argh!
   intervals = []
-  markers = []
+  window.markers = []
   ERROR = 'Sorry there was an error with your submission, please try again'
   MOBILE = ''
   buildings = window.startBuildings
@@ -29,14 +29,35 @@ $ ->
   infoBox = new InfoBox(infoBoxOptions)
 
   initialize = () ->
+    endorsementId = window.location.pathname.replace('/','')
+    if endorsementId isnt ''
+      showInfoBox = true
+      center = new google.maps.LatLng(window.endorsement.lat, window.endorsement.lng)
+      zoom = 17
+    else
+      center = new google.maps.LatLng(40.749728, -73.914484)
+      zoom = 12
     google.maps.visualRefresh = true
     mapOptions =
-      center: new google.maps.LatLng(40.749728, -73.914484)
-      zoom: 12
+      center: center
+      zoom: zoom
       scrollwheel: false
       mapTypeId: google.maps.MapTypeId.ROADMAP
     window.map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions)
     placeMarkers(buildings)
+    if showInfoBox is true
+      compile = _.template($('#endorsement-show').html())
+      $show = $('<div></div>')
+      $show.append compile(endorsement)
+      boxText = document.createElement("div")
+      boxText.className = 'endorsements-container'
+      buildingCompile = _.template($('#building-show').html())
+      boxText.innerHTML = ( buildingCompile(endorsement) + $show.html() )
+      if MOBILE is true
+        removeClutter()
+      infoBox.setContent boxText
+      infoBox.setPosition center
+      infoBox.open map
     delayInterval 3000, updateMap
     false
 
@@ -93,7 +114,8 @@ $ ->
             marker = getMarker(latlon)
           callBuildingAjax location, marker
           infoBox.setContent $('body').data('form')
-          infoBox.open map, marker
+          infoBox.setPosition marker.position
+          infoBox.open map 
           setEndorsementFormHandler marker
           false
         .fail () ->
@@ -112,7 +134,7 @@ $ ->
   callBuildingAjax = (location, marker) ->
     $.ajax({
       type: 'POST'
-      url: '/building/?lat='+location.lat+'&lon='+location.lng+'&address='+location.address+'&hood='+location.hood+'&county='+location.county })
+      url: window.location.origin+'/building/?lat='+location.lat+'&lon='+location.lng+'&address='+location.address+'&hood='+location.hood+'&county='+location.county })
         .done (data) ->
           building = data
           marker.building_id = building.id
@@ -155,7 +177,7 @@ $ ->
   setMarkerClickEvent = (marker) ->
     google.maps.event.addListener marker, 'click', ->
       $.ajax({
-        url: '/get_endorsements/?building_id='+marker.building_id })
+        url: window.location.origin+'/get_endorsements/?building_id='+marker.building_id })
           .done (data) ->
             compile = _.template($('#endorsement-show').html())
             $votes = $('<div></div>')
@@ -168,7 +190,8 @@ $ ->
             if MOBILE is true
               removeClutter()
             infoBox.setContent boxText
-            infoBox.open map, marker
+            infoBox.setPosition marker.position
+            infoBox.open map
         .fail () ->
           alert 'Sorry there was an error loading endorsements from the server, please try again'
 
@@ -197,7 +220,7 @@ $ ->
 
   updateMap = () ->
     $.ajax({
-      url: '/get_buildings/' })
+      url: window.location.origin+'/get_buildings/' })
         .done (data) ->
           if data.length != buildings.length
             buildings = data

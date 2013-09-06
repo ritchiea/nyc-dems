@@ -11,6 +11,14 @@ class Endorsement < ActiveRecord::Base
   has_one :user
   accepts_nested_attributes_for :user, :allow_destroy => false
 
+  def lat
+    building.lat
+  end
+
+  def lng
+    building.lng
+  end
+
   def check_description
     return if !description.blank?
     self.description = 'No comments'
@@ -30,5 +38,11 @@ class Endorsement < ActiveRecord::Base
 
   def photo_url
     candidate.photo_url
+  end
+
+  def title
+    #this is a terrible hack to accomodate an existing JS tempalte because I'm tired
+    #this is the kind of stuff where you start to feel really dirty inside
+    building.address
   end
 end
