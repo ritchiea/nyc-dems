@@ -24,6 +24,13 @@
     #container
       = yield
       / ! end of #container
+    #legend
+      .legend-color-1= @candidates[0].name
+      .legend-color-2= @candidates[1].name
+      .legend-color-3= @candidates[2].try(:name)
+      .legend-color-4= @candidates[3].try(:name)
+      .legend-color-5= @candidates[4].try(:name)
+      .legend-color-6 Undecided
     = render 'shared/about'
     = render 'shared/address_form'
     = render 'shared/endorsement_template'

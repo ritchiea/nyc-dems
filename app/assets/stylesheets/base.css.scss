@@ -277,3 +277,30 @@ p {
 .red {
   color: red !important;
 }
+
+#legend {
+  @include ui_element;
+  position: absolute;
+  bottom: 4%;
+  right: 2%;
+  z-index: 101;
+}      
+.legend-color-1 {
+  background-color: #A52A2A;
+}
+
+.legend-color-2 {
+  background-color: #42C0FB;
+}
+.legend-color-3 {
+  background-color: #68228B;
+}
+.legend-color-4 {
+  background-color: #B2B200;
+}
+.legend-color-5 {
+  background-color: #458B00;
+}
+.legend-color-6 {
+  background-color: #CCC;
+}
