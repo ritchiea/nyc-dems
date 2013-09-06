@@ -12,7 +12,15 @@ $trans_black: rgba(40, 40, 40, 0.75);
 }
 
 @media only screen and (max-width: 480px) {
-  #add-endorsement {
+#header {
+  width: 250px !important;
+p {
+  &.lead {
+    padding: 5px;
+    font-size: 18pt;
+  }
+}
+}  #add-endorsement {
     top: 20% !important;
   }
   #edit-endorsement {
