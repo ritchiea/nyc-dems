@@ -174,6 +174,7 @@ $ ->
 
   removeClutter = () ->
     $('#header').remove()
+    $('#legend').remove()
     $('#about-button').remove()
     $('#about').remove()
     $('#edit-endorsement').remove()
