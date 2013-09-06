@@ -58,18 +58,18 @@ $ ->
     e.preventDefault()
     $(@).parent().fadeToggle(300)
 
-  $(document).on 'click touchstart','#about-button', (e) ->
+  $(document).on 'click','#about-button', (e) ->
     e.preventDefault()
     $('#about').fadeIn(300)
 
-  $(document).on 'click touchstart','#add-endorsement', () ->
+  $(document).on 'click','#add-endorsement', () ->
     removeClutter() if MOBILE is true
     $('#address-form-container').fadeIn(300)
 
-  $(document).on 'click touchstart','#edit-endorsement', () ->
+  $(document).on 'click','#edit-endorsement', () ->
     $('#edit-endorsement-form-container').fadeIn(300)
 
-  $(document).on 'click touchstart', '#find-me', (e) ->
+  $(document).on 'click', '#find-me', (e) ->
     e.preventDefault()
     address = [
       $('#address').val().replace(/\ /g,'+'),
@@ -154,7 +154,7 @@ $ ->
       else 'CCCCCC'
 
   setMarkerClickEvent = (marker) ->
-    google.maps.event.addListener marker, 'click touchstart', ->
+    google.maps.event.addListener marker, 'click', ->
       $.ajax({
         url: '/get_endorsements/?building_id='+marker.building_id })
           .done (data) ->
