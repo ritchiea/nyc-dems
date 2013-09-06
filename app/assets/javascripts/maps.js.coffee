@@ -9,6 +9,7 @@ $ ->
   markers = []
   ERROR = 'Sorry there was an error with your submission, please try again'
   MOBILE = ''
+  buildings = window.startBuildings
 
   infoBoxOptions =
     boxStyle:
@@ -35,7 +36,7 @@ $ ->
       scrollwheel: false
       mapTypeId: google.maps.MapTypeId.ROADMAP
     window.map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions)
-    placeMarkers(window.buildings)
+    placeMarkers(buildings)
     delayInterval 3000, updateMap
     false
 
@@ -199,10 +200,12 @@ $ ->
     $.ajax({
       url: '/get_buildings/' })
         .done (data) ->
-          for marker in markers
-            do (marker = marker) ->
-              marker.setMap null
-          placeMarkers(data)
+          if data.length != buildings.length
+            buildings = data
+            for marker in markers
+              do (marker = marker) ->
+                marker.setMap null
+            placeMarkers(data)
 
   createMarker = (latlon, title) ->
     pinImage = new google.maps.MarkerImage(pinURL+"%E2%80%A2|CCCCCC|0D0D0D")
