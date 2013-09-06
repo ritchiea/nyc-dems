@@ -38,7 +38,8 @@ p {
   #about {
     top: 38% !important;
     left: 2% !important;
-    max-width: 330px !important;
+    max-width: 80% !important;
+    z-index: 105 !important;
   }
 
   #about-button {
