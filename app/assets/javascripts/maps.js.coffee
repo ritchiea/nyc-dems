@@ -217,12 +217,14 @@ $ ->
       setDelay 2000, () ->
         infoBox.close()
       setMarkerClickEvent marker
+      updateMap true
+      false
 
-  updateMap = () ->
+  updateMap = (force) ->
     $.ajax({
       url: window.location.origin+'/get_buildings/' })
         .done (data) ->
-          if data.length != buildings.length
+          if (data.length != buildings.length) || (force is true)
             buildings = data
             for marker in markers
               do (marker = marker) ->
