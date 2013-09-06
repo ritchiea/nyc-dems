@@ -74,6 +74,9 @@ $ ->
     $.ajax({
       url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false' })
         .done (data) ->
+          if data.status is "REQUEST_DENIED"
+            showAddressErrorMessage()
+            return false
           location = parseResults data.results[0]
           $('#address-form-container').fadeOut(300)
           latlon = new google.maps.LatLng(location.lat, location.lng)
@@ -91,6 +94,11 @@ $ ->
           false
         .fail () ->
           alert ERROR
+
+
+  showAddressErrorMessage = () ->
+    if $('.red').length == 0
+      $('p.comfort-text').prepend('<span class="red">There was an error finding your address. Please make sure you did not include an apartment or unit number</span></br></br>')
 
   getMarker = (latlon) ->
     for marker in markers

@@ -197,7 +197,6 @@ body {
   overflow-y: scroll;
   float: right;
 }
-
 #header {
   z-index: 101;
   position: absolute;
@@ -273,4 +272,8 @@ p {
 
 .comfort-text {
   margin: 10px 10px 0 0;
+}
+
+.red {
+  color: red !important;
 }
