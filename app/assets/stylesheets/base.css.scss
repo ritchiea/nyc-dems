@@ -19,7 +19,8 @@ $trans_black: rgba(40, 40, 40, 0.75);
     top: 20% !important;
   }
   #address-form-container {
-    top: 33% !important;
+    top: 20% !important;
+    z-index: 102 !important;
   }
   #edit-endorsement-form-container {
     top: 33% !important;
@@ -36,6 +37,9 @@ $trans_black: rgba(40, 40, 40, 0.75);
   }
   #legend {
     bottom: 10% !important;
+  }
+  .endorsement-description { 
+    max-width: 175px !important;
   }
 }
 

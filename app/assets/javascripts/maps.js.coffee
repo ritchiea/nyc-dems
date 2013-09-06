@@ -62,6 +62,7 @@ $ ->
     $('#about').fadeIn(300)
 
   $(document).on 'click','#add-endorsement', () ->
+    removeClutter() if MOBILE is true
     $('#address-form-container').fadeIn(300)
 
   $(document).on 'click','#edit-endorsement', () ->
@@ -164,10 +165,19 @@ $ ->
             boxText.className = 'endorsements-container'
             buildingCompile = _.template($('#building-show').html())
             boxText.innerHTML = ( buildingCompile(marker) + $votes.html() )
+            if MOBILE is true
+              removeClutter()
             infoBox.setContent boxText
             infoBox.open map, marker
         .fail () ->
           alert 'Sorry there was an error loading endorsements from the server, please try again'
+
+  removeClutter = () ->
+    $('#header').remove()
+    $('#about-button').remove()
+    $('#about').remove()
+    $('#edit-endorsement').remove()
+    $('#add-endorsement').remove()
 
   delayInterval = (ms, func) ->
     setInterval func, ms
