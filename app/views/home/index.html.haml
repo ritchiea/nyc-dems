@@ -2,7 +2,6 @@
   :javascript
     window.startBuildings = #{@buildings};
     window.endorsement = #{@show.present? ? @show.to_json(methods: [:lat,:lng, :title, :photo_url]) : false};
-    console.log(endorsement);
 
 .row
   .span12

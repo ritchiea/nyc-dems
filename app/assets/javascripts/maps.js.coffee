@@ -6,7 +6,7 @@ $ ->
   # this is for an ugly hack because the dom fails to update in time for ajax to set building_id
   # argh!
   intervals = []
-  window.markers = []
+  markers = []
   ERROR = 'Sorry there was an error with your submission, please try again'
   MOBILE = ''
   buildings = window.startBuildings
