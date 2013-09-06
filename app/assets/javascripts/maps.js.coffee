@@ -74,8 +74,7 @@ $ ->
     address = [
       $('#address').val().replace(/\ /g,'+'),
       $('#city').val().replace(/\ /g,'+'),
-      'NY',
-      $('#zip').val().replace(/\ /g,'+')].join(',')
+      'NY'].join(',')
     $.ajax({
       url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false' })
         .done (data) ->
