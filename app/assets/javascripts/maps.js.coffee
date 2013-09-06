@@ -8,6 +8,7 @@ $ ->
   intervals = []
   markers = []
   ERROR = 'Sorry there was an error with your submission, please try again'
+  MOBILE = ''
 
   infoBoxOptions =
     boxStyle:
@@ -30,7 +31,7 @@ $ ->
     google.maps.visualRefresh = true
     mapOptions =
       center: new google.maps.LatLng(40.749728, -73.914484)
-      zoom: 13
+      zoom: 12
       scrollwheel: false
       mapTypeId: google.maps.MapTypeId.ROADMAP
     window.map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions)
@@ -40,7 +41,9 @@ $ ->
 
   $(document).on 'ready page:load', () ->
     initialize()
-    infoBoxOptions.boxStyle.width = '320px' if $('body').width() < 481
+    if $('body').width() < 481
+      MOBILE = true
+      infoBoxOptions.boxStyle.width = '320px'
 
   $(document).ajaxComplete (e, xhr, settings) ->
     if xhr.status is 200 and settings.url is "/edit_endorsement/"
@@ -82,7 +85,7 @@ $ ->
           latlon = new google.maps.LatLng(location.lat, location.lng)
           $('#about').fadeOut(300) if $('#about').css('display') isnt 'none'
           map.panTo( latlon )
-          map.setZoom( window.map.getZoom()+4 ) if map.getZoom() isnt 17
+          map.setZoom( window.map.getZoom()+5 ) if map.getZoom() isnt 17
           if getMarker(latlon) is undefined
             marker = createMarker latlon, 'My Building'
           else

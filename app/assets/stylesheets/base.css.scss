@@ -27,12 +27,15 @@ $trans_black: rgba(40, 40, 40, 0.75);
   #about {
     top: 38% !important;
     left: 2% !important;
-    max-width: 400px !important;
+    max-width: 360px !important;
   }
 
   #about-button {
     bottom: 10% !important;
     left: 20% !important;
+  }
+  #legend {
+    bottom: 10% !important;
   }
 }
 
