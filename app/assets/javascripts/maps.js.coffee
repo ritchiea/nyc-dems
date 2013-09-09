@@ -58,11 +58,12 @@ $ ->
       infoBox.setContent boxText
       infoBox.setPosition center
       infoBox.open map
-    delayInterval 3000, updateMap
-    false
+    intervalId = delayInterval 3000, updateMap
 
   $(document).on 'ready page:load', () ->
-    initialize()
+    intervalId = initialize()
+    setDelay 600000, () ->
+      clearInterval(intervalId)
     if $('body').width() < 481
       MOBILE = true
       infoBoxOptions.boxStyle.width = '320px'
