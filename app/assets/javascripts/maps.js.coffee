@@ -61,12 +61,12 @@ $ ->
     intervalId = delayInterval 3000, updateMap
 
   $(document).on 'ready page:load', () ->
-    intervalId = initialize()
-    setDelay 600000, () ->
-      clearInterval(intervalId)
     if $('body').width() < 481
       MOBILE = true
       infoBoxOptions.boxStyle.width = '320px'
+    intervalId = initialize()
+    setDelay 600000, () ->
+      clearInterval(intervalId)
 
   $(document).ajaxComplete (e, xhr, settings) ->
     if xhr.status is 200 and settings.url is "/edit_endorsement/"
