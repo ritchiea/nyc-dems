@@ -11,23 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130905024404) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-  enable_extension "postgis"
+ActiveRecord::Schema.define(version: 20140204032950) do
 
   create_table "buildings", force: true do |t|
     t.string   "address"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.spatial  "lonlat",             limit: {:srid=>4326, :type=>"point", :geographic=>true}
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "neighborhood"
     t.string   "county"
     t.integer  "favorite_candidate"
+    t.decimal  "longitude"
+    t.decimal  "latitude"
   end
 
   create_table "candidates", force: true do |t|
@@ -49,19 +46,6 @@ ActiveRecord::Schema.define(version: 20130905024404) do
     t.string   "ip_address"
     t.integer  "upvotes"
     t.boolean  "seed_data",    default: false
-  end
-
-  create_table "locations", force: true do |t|
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "unit"
-    t.integer  "locationable_id"
-    t.string   "locationable_type"
-    t.spatial  "lonlat",            limit: {:srid=>4326, :type=>"point", :geographic=>true}
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

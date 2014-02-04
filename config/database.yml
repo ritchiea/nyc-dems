@@ -1,18 +1,7 @@
 development:
-  adapter: postgis
+  adapter: postgresql
   encoding: unicode
   database: dems_dev
-  postgis_extension: true
   host: localhost
-  schema_search_path: public,postgis
-  pool: 5
-  timeout: 5000
-
-test:
-  adapter: postgis
-  database: dems_test
-  postgis_extension: true
-  host: localhost
-  schema_search_path: public,postgis
   pool: 5
   timeout: 5000

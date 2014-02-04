@@ -7,7 +7,6 @@ gem 'rails', '4.0.0'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 gem 'pg'
-gem 'activerecord-postgis-adapter'
 
 #gem 'ember-rails'
 #gem 'ember-source', '1.0.0.rc7'
@@ -43,7 +42,7 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'jazz_hands'
+  #gem 'jazz_hands'
 end
 
 #gem 'warden'
