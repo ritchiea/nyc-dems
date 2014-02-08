@@ -36,7 +36,7 @@ $ ->
       zoom = 17
     else
       center = new google.maps.LatLng(40.749728, -73.914484)
-      zoom = 12
+      zoom = 11
     google.maps.visualRefresh = true
     mapOptions =
       center: center
@@ -116,7 +116,7 @@ $ ->
           callBuildingAjax location, marker
           infoBox.setContent $('body').data('form')
           infoBox.setPosition marker.position
-          infoBox.open map 
+          infoBox.open map
           setEndorsementFormHandler marker
           false
         .fail () ->
